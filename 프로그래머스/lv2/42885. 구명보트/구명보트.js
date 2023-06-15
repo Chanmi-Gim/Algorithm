@@ -1,14 +1,12 @@
 function solution(people, limit) {
-  let sum = 0 , count = 0;
-  people.sort((a, b) => b - a);
-  let left = 0;
-  let right = people.length - 1;
-  while (left <= right) {
-      if (people[left] + people[right] <= limit) {
-          left++;
-          right--;
-      } else {left++;}
-      count++;
-  }
-  return count;
+    let lt = 0, rt = people.length-1, count = 0;
+    people.sort((a,b)=> a-b)
+    while(rt >= lt){
+        let sum = people[lt] + people[rt];
+        if(lt === rt) sum = people[lt]
+        if(sum <= limit) lt++;
+        rt--;
+        count++;
+    }
+    return count
 }
