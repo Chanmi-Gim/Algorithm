@@ -1,19 +1,11 @@
-const assert = require("assert");
 function solution(prices) {
     const len = prices.length;
-    const stack = [];
-    prices.map((el, i, arr) => {
-        let flag = false;
-        for (let j = i + 1; j < prices.length; j += 1) {
-            if (el > arr[j]) {
-                stack.push(j - i);
-                flag = true;
-                break;
-            }
-        }
-        if (!flag) {
-            stack.push(len - i - 1);
+    return prices.map((el, i, arr) => {
+        const newArr = arr.slice(i);
+        const condition = newArr.findIndex((x) => el > x);
+        if (condition === -1) return len - i - 1;
+        for (let j = i + 1; j < arr.length; j += 1) {
+            if (el > arr[j]) return j - i;
         }
     });
-    return stack;
 }
