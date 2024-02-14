@@ -1,50 +1,15 @@
-const solution = (x, y) => {
-    let answer = ''
-    const x_list = Array.from({length : 10}, (_)=> 0)
-    const y_list = Array.from({length : 10}, (_)=> 0)
-    for (let i = 0; i < x.length ; i++) x_list[x[i]] += 1
-    for (let i = 0; i < y.length ; i++) y_list[y[i]] += 1    
-    for (let i = 9; i >= 0; i--){
-        if(x_list[i] && y_list[i]) {
-            let repeatedNum = Math.min(x_list[i], y_list[i])
-            answer += String(i).repeat(repeatedNum)
+const solution = (x, y) =>{
+    let result ='';
+    const map = new Map();
+    for (let i =0 ; i<y.length ; i++) map.set(y[i], (map.get(y[i])|| 0) +1);
+    for (let i =0 ; i<x.length ; i++) {
+        if(map.get(x[i])>=1){
+            map.set(x[i], (map.get(x[i]) || 0) -1)
+            console.log(map)       
+            result += x[i]
         }
     }
-    return answer === ''? '-1': (answer[0] === '0'? '0': answer)
+    console.log(map)
+    if(result.length < 1) return '-1';
+    return +result === 0 ? '0' : result.split('').sort((a, b) => b - a).join('');
 }
-
-// const solution = (x, y) => { 
-//     let str = '';
-//     for(let i = 0; i < x.length ; i++){
-//         let idx = y.indexOf(x[i]);
-//         if(idx === -1) continue; 
-//         str += x[i];
-//         y = y.replace(x[i], '');
-//     }
-//     return str === ''? '-1': ((str.split('').every((x)=>x ==='0'))? '0': str.split('').sort((a,b)=> b - a).join(''));
-// }
-
-
-// const solution = (x, y) => { 
-//     const answer = [];
-//     for(let i = 0; i < x.length ; i++){
-//         let idx = y.indexOf(x[i]);
-//         if(idx === -1) continue; 
-//         answer.push(x[i]);
-//         y = y.replace(x[i], '')
-//     }
-//     return answer.length === 0 ? "-1" : (answer.every((x)=> x === '0')? "0" : answer.sort((a, b)=> b - a).join(''))
-// }
-
-
-// const solution = (x, y) => { 
-//     const arr = y.split('');
-//     const answer = [];
-//     for(let i = 0; i < x.length ; i++){
-//         let idx = arr.indexOf(x[i]);
-//         if(idx === -1) continue; 
-//         answer.push(x[i]);
-//         arr.splice(idx, 1);
-//     }
-//     return answer.length === 0 ? "-1" : (answer.every((x)=>x==='0')? "0" : answer.sort((a,b)=> b-a).join(''))
-// }
