@@ -5,9 +5,7 @@ function solution(n){
         sum += e
         if(sum >= n || e === n){
             if(sum === n) cnt++
-            e = s;
-            sum = 0; 
-            s++            
+            (e = s),(sum = 0),(s++);            
         }
         e++
     }
