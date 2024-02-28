@@ -12,14 +12,12 @@ function solution(park, routes) {
         let y = park[i].indexOf('S');
         if (y !== -1) (sx = i), (sy = y);
     }
-    // 포인터 초기 설정
-    let [currX, currY] = [sx, sy];
 
     // 명령어 실행
     for (const route of routes) {
         let [d, times] = route.split(' ');
-        let x = currX + cmd[d][0];
-        let y = currY + cmd[d][1];
+        let x = sx + cmd[d][0];
+        let y = sy + cmd[d][1];
         let flag = false;
         for (let j = 0; j < times; j++) {
             if (x > HEIGHT || y > WIDTH || x < 0 || y < 0 || park[x][y] === 'X') {
@@ -31,9 +29,9 @@ function solution(park, routes) {
             }
         }
         if (!flag) {
-            currX += cmd[d][0] * times;
-            currY += cmd[d][1] * times;
+            sx += cmd[d][0] * times;
+            sy += cmd[d][1] * times;
         }
     }
-    return [currX, currY];
+    return [sx, sy];
 }
