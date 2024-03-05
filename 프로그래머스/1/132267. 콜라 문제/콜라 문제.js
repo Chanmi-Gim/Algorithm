@@ -4,12 +4,8 @@ function solution(a, b, n) {
         service = 0;
     while (true) {
         if (n <= a) {
-            if (n + rest >= a) {
-                n += rest;
-                rest = 0;
-            } else {
-                break;
-            }
+            if(n + rest < a) break;
+            (n += rest), (rest = 0);
         }
         share = Math.floor(n / a);
         rest += n % a;
