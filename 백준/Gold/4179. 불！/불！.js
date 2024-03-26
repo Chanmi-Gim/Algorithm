@@ -12,26 +12,24 @@ arr.forEach((row, i) => {
 });
 
 const bfs = (jihoon, fire) => {
-    let move = 1;
-    const queue = [];
-    fire.forEach((item) => {
-        queue.push([...item, 'F', 0]);
+    const queue = []; // queue에 불 먼저 들어간 다음, jihoon가 들어가는 게 포인트
+    fire.forEach((v) => {
+        queue.push([...v, 'F', 0]);
     });
     queue.push([...jihoon, 'J', 0]);
     while (queue.length !== 0) {
         const [x, y, type, step] = queue.shift();
-        if (type === 'J') move -= 1;
         if (x === 0 || x === R - 1 || y === 0 || y === C - 1) {
             if (type === 'J') return step + 1;
         }
         for (let i = 0; i < 4; i++) {
-            const [newX, newY] = [x + ds[i][0], y + ds[i][1]];
-            if (newX < 0 || newX >= R || newY < 0 || newY >= C) continue;
+            const newX = x + ds[i][0];
+            const newY = y + ds[i][1];
+            if (newX < 0 || newY < 0 || newX >= R || newY >= C) continue;
             if (type === 'J') {
                 if (arr[newX][newY] === '.') {
                     arr[newX][newY] = 'J';
                     queue.push([newX, newY, 'J', step + 1]);
-                    move += 1;
                 }
             } else if (type === 'F') {
                 if (arr[newX][newY] === '.' || arr[newX][newY] === 'J') {
@@ -40,7 +38,6 @@ const bfs = (jihoon, fire) => {
                 }
             }
         }
-        if (move <= 0) break;
     }
     return 'IMPOSSIBLE';
 };
