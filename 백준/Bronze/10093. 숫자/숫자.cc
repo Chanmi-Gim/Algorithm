@@ -1,16 +1,13 @@
 #include <iostream>
-#include <algorithm>
 using namespace std;
-int A, B, cnt, length;
+long long A, B;
 int main(){
   cin >> A >> B;
   if (A > B) swap(A, B);
-  length = B - A - 1;
-  int numberArr[length];
-  for(int i = 0; i < length; i++){
-    numberArr[i] = i + A + 1;
-    cnt++;
-  }
-  cout << cnt << '\n';
-  for(int i = 0; i < length ; i++) cout << numberArr[i] << ' ';  
+  if(A == B){
+    cout << 0 << '\n';
+  }else{
+    cout << B - A - 1 << '\n';
+    for(long long i = A + 1; i < B; i++) cout << i << ' ';
+  } 
 }
