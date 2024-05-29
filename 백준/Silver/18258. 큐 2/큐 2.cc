@@ -2,8 +2,9 @@
 #include <queue>
 using namespace std;
 
-int t;
-queue<int> q;
+int t, s, e, i;
+int q[100000000];
+
 int main(void){
   ios_base::sync_with_stdio(0);
   cin.tie(0);  
@@ -12,25 +13,17 @@ int main(void){
     string cmd; 
     cin >> cmd;
     if(cmd == "push"){
-      int v;
-      cin >> v;
-      q.push(v); 
-    }else if(cmd == "front"){
-      if(q.empty()) cout << -1 << '\n';
-      else cout << q.front() << '\n';
-    }else if(cmd == "back"){
-      if(q.empty()) cout << -1 << '\n';
-      else cout << q.back() << '\n';
+      cin >> q[e++];
     }else if(cmd == "pop"){
-      if(q.empty()) cout << -1 << '\n';
-      else {
-        cout << q.front() << '\n';
-        q.pop();
-      }
+      cout << (s == e? -1 : q[s++]) << '\n';
     }else if(cmd == "size"){
-      cout << q.size() << '\n';
+      cout << e - s << '\n';
+    }else if(cmd == "empty"){
+      cout << (s == e) << '\n';
+    }else if(cmd == "front"){
+      cout << (s == e? -1 : q[s]) << '\n'; 
     }else{
-      cout << q.empty() << '\n';
+      cout << (s == e? -1 : q[e-1]) << '\n';
     }
   }
 }
