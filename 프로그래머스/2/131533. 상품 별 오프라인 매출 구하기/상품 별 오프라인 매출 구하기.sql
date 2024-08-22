@@ -1,0 +1,7 @@
+select PRODUCT_CODE, PRICE * SUM(SALES_AMOUNT) as SALES
+from  OFFLINE_SALE A
+left join PRODUCT B
+on A.PRODUCT_ID = B.PRODUCT_ID
+group by PRODUCT_CODE
+order by SALES desc, PRODUCT_CODE asc;
+
