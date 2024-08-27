@@ -1,12 +1,12 @@
-const solution = (number, k) => {
-    const stack = [];
-    const size = number.length - k;
-    number.split('').forEach((n) => {
-        while(stack[stack.length-1] < n && k){
+function solution(number, k) {
+    let stack =[];
+    number.split('').forEach((x)=>{
+        while(stack.length > 0 && k > 0 && stack[stack.length-1] < x){
             stack.pop();
             k--;
         }
-        if(stack.length < size) stack.push(n);   
+        stack.push(x)
     })
+    stack.splice(stack.length-k, k)
     return stack.join('')
 }
