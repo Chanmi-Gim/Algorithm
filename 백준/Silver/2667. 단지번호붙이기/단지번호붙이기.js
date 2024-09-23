@@ -1,36 +1,40 @@
-const [n, ...input] = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
-const arr = input.map((item) => item.split('').map(Number));
+const [_, ...input] = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
+let complex = 0;
+const apartNumber = [];
+const xLen = input.length;
+const yLen = input[0].length;
+const visited = Array.from({ length: xLen }, () => Array(yLen).fill(false));
 const ds = [
     [0, 1],
     [0, -1],
     [1, 0],
     [-1, 0],
 ];
-const bfs = (x, y) => {
-    const queue = [[x, y]];
-    arr[x][y] = 0;
+const dfs = (x, y) => {
     let cnt = 1;
-    while (queue.length) {
-        const [x, y] = queue.shift();
-        for (let k = 0; k < 4; k++) {
-            let newX = x + ds[k][0];
-            let newY = y + ds[k][1];
-            if (newX < 0 || newY < 0 || newX >= +n || newY >= +n || !arr[newX][newY]) continue;
-            arr[newX][newY] = 0;
-            queue.push([newX, newY]);
-            cnt++;
+    visited[x][y] = true;
+    for (let i = 0; i < 4; i++) {
+        let newX = x + ds[i][0];
+        let newY = y + ds[i][1];
+        if (newX >= 0 && newY >= 0 && newX < xLen && newY < yLen && input[newX][newY] === '1' && !visited[newX][newY]) {
+            cnt += dfs(newX, newY);
         }
     }
-    answer.push(cnt);
+    return cnt;
 };
-let totalCount = 0;
-let answer = [];
-for (let i = 0; i < +n; i++) {
-    for (let j = 0; j < +n; j++) {
-        if (arr[i][j]) {
-            bfs(i, j);
-            totalCount++;
+
+for (let r = 0; r < xLen; r++) {
+    for (let c = 0; c < yLen; c++) {
+        if (input[r][c] === '1' && !visited[r][c]) {
+            complex += 1;
+            let result = dfs(r, c);
+            apartNumber.push(result);
         }
     }
 }
-console.log([totalCount, ...answer.sort((a, b) => a - b)].join('\n'));
+console.log(complex);
+apartNumber
+    .sort((a, b) => a - b)
+    .forEach((item) => {
+        console.log(item);
+    });
