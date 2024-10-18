@@ -1,19 +1,17 @@
-function solution(word) {
-    const newWord = ['A', 'E', 'I', 'O', 'U'];
-    const len = newWord.length;
-    let cnt = 0;
-    let answer = 0;
-    function dfs(v, str) {
-        if (v > len) return;
-        if (str === word) {
-            answer = cnt;
-            return;
-        }
-        cnt++;
-        for (let i = 0; i < len; i++) {
-            dfs(v + 1, str + newWord[i]);
-        }
+const dic = ['A', 'E', 'I', 'O', 'U'];
+const words = {}
+let count = 0;
+
+const dfs = (v, str) =>{
+    if(v > 5) return
+    words[str] = count++;
+    for(let i = 0; i < dic.length ; i++){
+        dfs(v+1, str+dic[i])
     }
-    dfs(0, '');
-    return answer;
 }
+
+const solution = (word) =>{
+    dfs(0, '')
+    return words[word]
+}
+
